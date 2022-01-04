@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "twt_tools"
+version = "0.1.0"
+description = ""
+authors = ["piotr <upsol@protonmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fsspec = "^2021.11.1"
+md2pdf = "^0.5"
+snscrape = {git = "https://github.com/JustAnotherArchivist/snscrape.git"}
+weasyprint = {git = "https://github.com/upsole/WeasyPrint.git"}
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

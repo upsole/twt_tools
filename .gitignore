@@ -1,0 +1,7 @@
+*.json
+.ipynb_checkpoints
+*.ipynb
+scraped_files/
+tdl_notes
+*.pdf
+__pycache__/
