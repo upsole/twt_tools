@@ -43,11 +43,22 @@ class Thread:
         os.makedirs(f"{self.src_folder}/{thread_name}/img", exist_ok=True)
         for tw_index, tw in enumerate(thread):
             if tw["media"]:
+                print("Fetching media files...")
                 for media_index, i in enumerate(tw["media"]):
-                    if i["fullUrl"]:
-                        # os.system(f"wget -q -O scraped_files/{thread_name}/img/{tw_index}_{media_index}.jpg {i['fullUrl']}")
-                        subprocess.Popen(f"wget -q -O {self.src_folder}/{thread_name}/img/{tw_index}_{media_index}.jpg {i['fullUrl']}", shell = True)
-                        print("image saved")
+                    if i.get("fullUrl"):
+                        image_fetch = subprocess.Popen(f"wget -q -O {self.src_folder}/{thread_name}/img/{tw_index}_{media_index}.jpg {i['fullUrl']}", shell = True)
+                        image_fetch.wait()
+                        print("Image saved")
+
+                    elif i.get("variants"):
+                        video_fetch = subprocess.Popen(f"wget -q -O {self.src_folder}/{thread_name}/img/{tw_index}_{media_index}.mp4 {i['variants'][0]['url']}", shell = True)
+                        video_fetch.wait()
+                        thumb_fetch = subprocess.Popen(f"wget -q -O {self.src_folder}/{thread_name}/img/{tw_index}_{media_index}_thumb.jpg {i['thumbnailUrl']}", shell = True)
+                        thumb_fetch.wait()
+                        print("media saved!")
+
+                print("Finished fecthing media files!")
+
 
     def build_markdown(self):
         thread = self.thread
@@ -68,8 +79,12 @@ class Thread:
             if tw["media"]:
                 f.write("<div style='display:flex; flex-direction: row; flex-wrap: wrap;'>")
                 for media_index, i in enumerate(tw["media"]):
-                    if i["fullUrl"]:
+                    if i.get("fullUrl"):
                         f.write(f"<img src='img/{tw_index}_{media_index}.jpg' style='height: 350px; object-fit: contain;'/>")
+
+                    if i.get("variants"):
+                        f.write(f"<img src='img/{tw_index}_{media_index}_thumb.jpg' style='height: 350px; object-fit: contain;'/> \n")
+                        f.write(f"Video URL: {i['variants'][0]['url']}")
                 f.write("</div>")
         f.close()
         print(f"Written thread as {thread_name}/{thread_name}.md")        
@@ -80,7 +95,6 @@ class Thread:
         md_file = os.path.join(base_folder, f"{thread_name}.md")
         base_url = os.path.abspath(base_folder)
         pdf_name = f"{self.output_dir}/{self.thread_name}.pdf" 
-        time.sleep(1)
         md2pdf(pdf_name, md_file_path=md_file, css_file_path=os.path.abspath(self.css), base_url=base_url)
         print(f"Conversion finished")
 
@@ -88,4 +102,4 @@ class Thread:
         os.system(f"rm -r {self.src_folder}/{self.thread_name}")
         if not os.listdir(f"{self.src_folder}"):
             os.rmdir(self.src_folder)
-        print("Cleanup finished")
+        print("Cleanup finished. Build files are deleted")
