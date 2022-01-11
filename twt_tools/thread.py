@@ -1,18 +1,9 @@
 import subprocess
-import json
 import os
 import re
-import time
+from lib import link_parser, scrape_tweet
 from md2pdf.core import md2pdf
 
-def link_parser(s):
-    return re.sub(r'https://twitter.com/[a-zA-Z0-9_]*/[a-zA-Z0-9]*/', '', s)
-
-def scrape_tweet(id):
-    process = subprocess.Popen(f"snscrape --jsonl twitter-tweet {id}", stdout=subprocess.PIPE, shell=True)
-    (output, err) = process.communicate()
-    json_dict = json.loads(output.decode())
-    return json_dict    
 
 class Thread:
     # link String: Url from the last tweet of the twitter thread
