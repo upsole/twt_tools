@@ -1,6 +1,7 @@
 import subprocess
 import os
 import re
+import time
 from lib import link_parser, scrape_tweet
 from md2pdf.core import md2pdf
 
@@ -86,6 +87,7 @@ class Thread:
         md_file = os.path.join(base_folder, f"{thread_name}.md")
         base_url = os.path.abspath(base_folder)
         pdf_name = f"{self.output_dir}/{self.thread_name}.pdf" 
+        time.sleep(1)
         md2pdf(pdf_name, md_file_path=md_file, css_file_path=os.path.abspath(self.css), base_url=base_url)
         print(f"Conversion finished")
 
