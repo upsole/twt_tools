@@ -10,6 +10,7 @@ fsspec = "^2021.11.1"
 md2pdf = "^0.5"
 snscrape = {git = "https://github.com/JustAnotherArchivist/snscrape.git"}
 weasyprint = {git = "https://github.com/upsole/WeasyPrint.git"}
+python-dateutil = "^2.8.2"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"

@@ -2,7 +2,7 @@ import subprocess
 import os
 import re
 import time
-from lib import link_parser, scrape_tweet
+from lib import link_parser, scrape_tweet, format_date
 from md2pdf.core import md2pdf
 
 
@@ -59,6 +59,7 @@ class Thread:
         f = open(f"{self.src_folder}/{thread_name}/{thread_name}.md", "w")
         f.write(f"### Author: @{thread[0]['user']['username']}\n")
         f.write(f"#### URL: {thread[0]['url']}\n")
+        f.write(f"#### Date: {format_date(thread[0]['date'])}\n")
         for tw_index, tw in enumerate(thread):
             f.write("\n")
             f.write("---\n")

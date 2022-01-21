@@ -1,6 +1,8 @@
 import re
 import subprocess
 import json
+from datetime import datetime as dt
+from dateutil import parser
 
 def link_parser(s):
     return re.sub(r'https://twitter.com/[a-zA-Z0-9_]*/[a-zA-Z0-9]*/', '', s)
@@ -10,3 +12,7 @@ def scrape_tweet(id):
     (output, err) = process.communicate()
     json_dict = json.loads(output.decode())
     return json_dict    
+
+def format_date(s):
+    return dt.strftime(parser.parse(s), "%D %H:%M")
+
