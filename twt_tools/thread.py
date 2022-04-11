@@ -2,7 +2,7 @@ import subprocess
 import os
 import re
 import time
-from lib.lib import link_parser, scrape_tweet, format_date
+from twt_tools.lib.lib import link_parser, scrape_tweet, format_date
 from md2pdf.core import md2pdf
 
 

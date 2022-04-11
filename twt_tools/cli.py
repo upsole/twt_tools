@@ -1,5 +1,5 @@
 from thread import Thread
-from lib.lib import get_media
+from twt_tools.lib.lib import get_media
 import argparse
 import os
 
