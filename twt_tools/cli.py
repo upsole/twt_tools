@@ -1,5 +1,5 @@
 from thread import Thread
-from get_media import get_media
+from lib.lib import get_media
 import argparse
 import os
 

@@ -5,3 +5,4 @@ scraped_files/
 tdl_notes
 *.pdf
 __pycache__/
+scripts/

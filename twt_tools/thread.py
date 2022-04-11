@@ -2,16 +2,16 @@ import subprocess
 import os
 import re
 import time
-from lib import link_parser, scrape_tweet, format_date
+from lib.lib import link_parser, scrape_tweet, format_date
 from md2pdf.core import md2pdf
 
 
 class Thread:
     # link String: Url from the last tweet of the twitter thread
     # thread_name: Name of folder 
-    def __init__(self, link, thread_name, output_dir=""):
-        self.id = link_parser(link)
-        self.thread_name = thread_name
+    def __init__(self, url, thread_name, output_dir=""):
+        self.id = link_parser(url)
+        self.thread_name = link_parser(thread_name)
         self.thread = self.build_thread(self.id)
         self.output_dir = os.path.abspath(output_dir)
         self.src_folder = os.path.abspath(os.path.join(output_dir, "scraped_files"))
