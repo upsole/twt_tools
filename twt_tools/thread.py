@@ -2,6 +2,7 @@ import subprocess
 import os
 import re
 import time
+import json
 from twt_tools.lib.lib import link_parser, scrape_tweet, format_date
 from md2pdf.core import md2pdf
 
@@ -24,10 +25,13 @@ class Thread:
         while thread[-1]["inReplyToTweetId"]:
             tw = scrape_tweet(thread[-1]["inReplyToTweetId"])
             thread.append(tw)
-            print("Indexed tweet")
-        print("Scraping Finished")
+            # print("Indexed tweet")
+        # print("Scraping Finished")
         thread.reverse()
         return thread
+
+    def thread_to_json(self):
+        return json.dumps(self.thread)
 
     def get_images(self):
         thread = self.thread
