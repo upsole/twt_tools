@@ -5,7 +5,7 @@ from datetime import datetime as dt
 from dateutil import parser
 
 def link_parser(s):
-    return re.sub(r'https://twitter.com/[a-zA-Z0-9_]*/[a-zA-Z0-9]*/', '', s)
+    return re.sub(r'\?.+', '', re.sub(r'https://twitter.com/[a-zA-Z0-9_]*/[a-zA-Z0-9]*/', '', s))
 
 def scrape_tweet(id):
     process = subprocess.Popen(f"snscrape --jsonl twitter-tweet {id}", stdout=subprocess.PIPE, shell=True)

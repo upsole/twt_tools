@@ -69,10 +69,10 @@ class Thread:
             f.write("---\n")
             f.write(f"# {str(tw_index + 1)}")
             f.write("\n")
-            f.write(f"{re.sub(r'https://t.co/[a-zA-Z0-9_]*', '', tw['content'])}\n")
+            f.write(f"{re.sub(r'https://t.co/[a-zA-Z0-9_]*', '', tw['rawContent'])}\n")
             if tw["quotedTweet"]:
                 f.write(f">## Quoting {tw['quotedTweet']['url']}\n")
-                f.write(f">{tw['quotedTweet']['content']}\n")
+                f.write(f">{tw['quotedTweet']['rawContent']}\n")
             if tw["media"]:
                 f.write("<div style='display:flex; flex-direction: row; flex-wrap: wrap;'>")
                 for media_index, i in enumerate(tw["media"]):
