@@ -71,8 +71,12 @@ class Thread:
             f.write("\n")
             f.write(f"{re.sub(r'https://t.co/[a-zA-Z0-9_]*', '', tw['rawContent'])}\n")
             if tw["quotedTweet"]:
-                f.write(f">## Quoting {tw['quotedTweet']['url']}\n")
-                f.write(f">{tw['quotedTweet']['rawContent']}\n")
+                if tw["quotedTweet"].get("url") and tw["quotedTweet"].get("rawContent"):
+                    f.write(f">## Quoting {tw['quotedTweet']['url']}\n")
+                    f.write(f">{tw['quotedTweet']['rawContent']}\n")
+                else:
+                    f.write("### Quoted tweet was deleted.\n")
+                
             if tw["media"]:
                 f.write("<div style='display:flex; flex-direction: row; flex-wrap: wrap;'>")
                 for media_index, i in enumerate(tw["media"]):
